@@ -28,6 +28,11 @@ package uk.co.zutty.ttclone {
 
         private var _constructionSound:Sfx = new Sfx(CONSTRUCTION_SOUND);
 
+        [Embed(source="/build.mp3")]
+        private static const BUILD_SOUND:Class;
+
+        private var _buildSound:Sfx = new Sfx(BUILD_SOUND);
+
         private var _background:Tilemap;
 
         private var _road:Tilemap;
@@ -95,6 +100,7 @@ package uk.co.zutty.ttclone {
                                 : Boolean(setRoad(mouseTileX, mouseTileY, true));
 
                         if (roadChanged) {
+                            _buildSound.play();
                             _constructionSound.play();
                         }
 
