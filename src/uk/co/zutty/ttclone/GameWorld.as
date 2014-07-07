@@ -1,7 +1,8 @@
 package uk.co.zutty.ttclone {
+    import flash.media.Sound;
+
     import net.flashpunk.Entity;
     import net.flashpunk.FP;
-    import net.flashpunk.Sfx;
     import net.flashpunk.World;
     import net.flashpunk.graphics.Image;
     import net.flashpunk.graphics.Tilemap;
@@ -26,12 +27,12 @@ package uk.co.zutty.ttclone {
         [Embed(source="/construction.mp3")]
         private static const CONSTRUCTION_SOUND:Class;
 
-        private var _constructionSound:Sfx = new Sfx(CONSTRUCTION_SOUND);
+        private var _constructionSound:Sound = new CONSTRUCTION_SOUND;
 
         [Embed(source="/build.mp3")]
         private static const BUILD_SOUND:Class;
 
-        private var _buildSound:Sfx = new Sfx(BUILD_SOUND);
+        private var _buildSound:Sound = new BUILD_SOUND;
 
         private var _background:Tilemap;
 
