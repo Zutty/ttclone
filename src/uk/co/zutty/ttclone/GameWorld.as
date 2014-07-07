@@ -1,5 +1,7 @@
 package uk.co.zutty.ttclone {
+    import flash.events.Event;
     import flash.media.Sound;
+    import flash.media.SoundChannel;
 
     import net.flashpunk.Entity;
     import net.flashpunk.FP;
@@ -28,6 +30,8 @@ package uk.co.zutty.ttclone {
         private static const CONSTRUCTION_SOUND:Class;
 
         private var _constructionSound:Sound = new CONSTRUCTION_SOUND;
+
+        private var _constructionSoundsQueued:int = 0;
 
         [Embed(source="/build.mp3")]
         private static const BUILD_SOUND:Class;
@@ -101,8 +105,9 @@ package uk.co.zutty.ttclone {
                                 : Boolean(setRoad(mouseTileX, mouseTileY, true));
 
                         if (roadChanged) {
-                            _buildSound.play();
-                            _constructionSound.play();
+                            var buildSoundChannel:SoundChannel = _buildSound.play();
+                            buildSoundChannel.addEventListener(Event.SOUND_COMPLETE, onBuildSoundComplete);
+                            ++_constructionSoundsQueued;
                         }
 
                         _lastMouseTileX = mouseTileX;
@@ -150,6 +155,12 @@ package uk.co.zutty.ttclone {
 
                     _busStop = null;
                 }
+            }
+        }
+
+        private function onBuildSoundComplete(event:Event):void {
+            if (--_constructionSoundsQueued == 0) {
+                _constructionSound.play();
             }
         }
 
